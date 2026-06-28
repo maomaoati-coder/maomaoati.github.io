@@ -4,9 +4,11 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>毛广辉 · Photonic Computing Inventor</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<!-- 主 CDN：loli.net 国内镜像 -->
+<link rel="preconnect" href="https://fonts.loli.net" crossorigin />
+<link href="https://fonts.loli.net/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<!-- 备用 CDN：如 loli.net 失效则从 Google 加载（境外访客） -->
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" onerror="this.remove()" />
 <style>
 /* ─── RESET ─────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,7 +36,7 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: 'Inter', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
   font-size: 16px;
   line-height: 1.6;
   overflow-x: hidden;
@@ -56,7 +58,7 @@ a { color: inherit; text-decoration: none; }
   transition: background 0.3s;
 }
 .nav-logo {
-  font-family: 'Rajdhani', sans-serif;
+  font-family: 'Rajdhani', 'PingFang SC', 'Microsoft YaHei', Impact, sans-serif;
   font-weight: 700;
   font-size: 0.95rem;
   letter-spacing: 0.18em;
@@ -93,6 +95,9 @@ a { color: inherit; text-decoration: none; }
   inset: 0;
   width: 100%;
   height: 100%;
+  /* Static fallback if canvas/JS fails */
+  background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(0,200,255,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse 50% 40% at 70% 60%, rgba(139,92,246,0.06) 0%, transparent 50%);
 }
 #hero::after {
   content: '';
@@ -124,12 +129,14 @@ a { color: inherit; text-decoration: none; }
   animation: slideUp 0.9s 0.6s cubic-bezier(0.22,1,0.36,1) forwards;
 }
 .hero-name-en {
-  font-family: 'Rajdhani', sans-serif;
+  font-family: 'Rajdhani', 'PingFang SC', 'Microsoft YaHei', Impact, sans-serif;
   font-size: clamp(3.8rem, 13vw, 9.5rem);
   font-weight: 700;
   line-height: 0.88;
   letter-spacing: -0.025em;
   display: block;
+  /* Fallback: always visible even without font or clip support */
+  color: var(--c0);
   background: linear-gradient(130deg, #00C8FF 0%, #9B6FFF 45%, #00C8FF 100%);
   background-size: 220% 220%;
   -webkit-background-clip: text;
@@ -137,6 +144,13 @@ a { color: inherit; text-decoration: none; }
   background-clip: text;
   animation: slideUp 0.9s 0.6s cubic-bezier(0.22,1,0.36,1) forwards,
              gradFlow 5s 1.5s ease-in-out infinite;
+}
+/* Safety: if -webkit-text-fill-color not supported, color shows */
+@supports not (-webkit-background-clip: text) {
+  .hero-name-en {
+    background: none;
+    color: var(--c0);
+  }
 }
 .hero-name-zh {
   font-size: clamp(0.8rem, 2vw, 1rem);
@@ -225,7 +239,7 @@ a { color: inherit; text-decoration: none; }
   margin-bottom: 0.6rem;
 }
 .section-title {
-  font-family: 'Rajdhani', sans-serif;
+  font-family: 'Rajdhani', 'PingFang SC', 'Microsoft YaHei', Impact, sans-serif;
   font-size: clamp(2rem, 5vw, 3.6rem);
   font-weight: 700;
   line-height: 1.05;
@@ -867,7 +881,7 @@ footer {
     <div class="projects-grid">
 
       <div class="proj-card pc0">
-        <span class="proj-icon">〇</span>
+        <span class="proj-icon">◯</span>
         <span class="proj-en">PLC · Foundation Logic</span>
         <div class="proj-zh">光影芯片</div>
         <p class="proj-desc">Light beam angles through liquid-crystal film as Boolean logic gates. The founding invention. 12 prior art versions with complete SHA-256 hash chain on CERN Zenodo.</p>
@@ -878,7 +892,7 @@ footer {
       </div>
 
       <div class="proj-card pc1">
-        <span class="proj-icon">◈</span>
+        <span class="proj-icon">◆</span>
         <span class="proj-en">PSM · Memory Layer</span>
         <div class="proj-zh">光子状态存储</div>
         <p class="proj-desc">Persistent photonic memory via LC polarization states. Non-volatile storage layer enabling photonic logic results to be retained and retrieved across computation cycles.</p>
@@ -889,7 +903,7 @@ footer {
       </div>
 
       <div class="proj-card pc2">
-        <span class="proj-icon">⬡</span>
+        <span class="proj-icon">⬢</span>
         <span class="proj-en">STO · Advanced Logic</span>
         <div class="proj-zh">影拓算子</div>
         <p class="proj-desc">Shadow Topology Operator — a second-generation PLC extending to higher-dimensional phase spaces. Multi-beam interference as a computational substrate.</p>
@@ -911,7 +925,7 @@ footer {
       </div>
 
       <div class="proj-card pc4">
-        <span class="proj-icon">⟁</span>
+        <span class="proj-icon">△</span>
         <span class="proj-en">PEOS · OS Layer</span>
         <div class="proj-zh">光子涌现操作系统</div>
         <p class="proj-desc">First OS designed natively for photonic computation. Interference-based process arbitration, emergent scheduling without a clock, photonic syscall architecture.</p>
@@ -927,26 +941,4 @@ footer {
         <div class="proj-zh">光子意识·环境融合</div>
         <p class="proj-desc">Ambient photonic consciousness layer. Born from a 3 AM observation of refracted ceiling light. Room-scale computation medium as the philosophical apex of the stack.</p>
         <div class="proj-footer">
-          <a class="proj-doi-link" href="https://github.com/maomaoati-coder" target="_blank">GitHub</a>
-          <span class="proj-status ok">SECURED</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- ─── HARDWARE ──────────────────────────────────────────── -->
-<div id="hardware">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-label">Real-World Bridge</span>
-      <h2 class="section-title">凌控核 &nbsp;<span style="font-size:0.45em;color:var(--dim);font-weight:400;vertical-align:middle;">LingKong Core</span></h2>
-      <p class="section-body">While the PCFS awaits its photonic dawn, LingKong Core bridges today — a fully verified Edge-AI MCU with INT8 inference, simulated end-to-end.</p>
-    </div>
-    <div class="hw-grid">
-      <div>
-        <span class="hw-main-sub">EDGE-AI MCU ARCHITECTURE · 5 LAYERS</span>
-        <div class="hw-main-title">凌控核</div>
-        <p class="hw-main-desc">
-          A complete 5-layer Edge-AI MC
+          <a class="proj-doi-link" href="https://github.com/maomaoati-coder" target="_blank">Gi

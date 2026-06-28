@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>毛广辉 · Photonic Computing Inventor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+/* ─── RESET ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ─── TOKENS ─────────────────────────────────────────────── */
+:root {
+  --bg:      #040C15;
+  --surface: #071421;
+  --card:    #0B1D2E;
+  --border:  rgba(0,200,255,0.10);
+  --text:    #D6EEFF;
+  --dim:     #4A6A84;
+  /* Layer accent colors L0→L5 */
+  --c0: #00C8FF;
+  --c1: #00FFCD;
+  --c2: #8B5CF6;
+  --c3: #F43FE8;
+  --c4: #F97316;
+  --c5: #EAB308;
+  --hw: #F59E0B;
+}
+
+/* ─── BASE ───────────────────────────────────────────────── */
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+
+/* ─── NAV ────────────────────────────────────────────────── */
+#nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 2.5rem;
+  background: rgba(4,12,21,0.82);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s;
+}
+.nav-logo {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.18em;
+  color: var(--c0);
+}
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+.nav-links a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  color: var(--dim);
+  transition: color 0.2s;
+  text-transform: uppercase;
+}
+.nav-links a:hover { color: var(--c0); }
+@media (max-width: 600px) { .nav-links { display: none; } }
+
+/* ─── HERO ───────────────────────────────────────────────── */
+#hero {
+  position: relative;
+  height: 100vh;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+#hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+#hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 50%, transparent 30%, rgba(4,12,21,0.75) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 2rem;
+}
+/* Staggered hero entrance animations */
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.32em;
+  color: var(--c0);
+  text-transform: uppercase;
+  margin-bottom: 1.6rem;
+  opacity: 0;
+  animation: slideUp 0.9s 0.4s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+.hero-name-wrap {
+  opacity: 0;
+  animation: slideUp 0.9s 0.6s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+.hero-name-en {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(3.8rem, 13vw, 9.5rem);
+  font-weight: 700;
+  line-height: 0.88;
+  letter-spacing: -0.025em;
+  display: block;
+  background: linear-gradient(130deg, #00C8FF 0%, #9B6FFF 45%, #00C8FF 100%);
+  background-size: 220% 220%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: slideUp 0.9s 0.6s cubic-bezier(0.22,1,0.36,1) forwards,
+             gradFlow 5s 1.5s ease-in-out infinite;
+}
+.hero-name-zh {
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  color: var(--dim);
+  letter-spacing: 1em;
+  margin-top: 0.5em;
+  display: block;
+  font-weight: 300;
+  -webkit-text-fill-color: var(--dim);
+}
+.hero-subtitle {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(0.85rem, 2.2vw, 1.2rem);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: rgba(214,238,255,0.45);
+  margin: 1.6rem 0 2.2rem;
+  opacity: 0;
+  animation: slideUp 0.9s 0.8s cubic-bezier(0.22,1,0.36,1) forwards;
+  -webkit-text-fill-color: rgba(214,238,255,0.45);
+}
+.hero-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  justify-content: center;
+  opacity: 0;
+  animation: slideUp 0.9s 1.0s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+.hero-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  color: var(--c0);
+  border: 1px solid rgba(0,200,255,0.28);
+  padding: 0.28rem 0.8rem;
+  border-radius: 100px;
+  background: rgba(0,200,255,0.05);
+}
+.hero-pill.p1 { color: var(--c1); border-color: rgba(0,255,205,0.28); background: rgba(0,255,205,0.05); }
+.hero-pill.p2 { color: var(--c2); border-color: rgba(139,92,246,0.28); background: rgba(139,92,246,0.05); }
+.hero-pill.p3 { color: var(--c3); border-color: rgba(244,63,232,0.28); background: rgba(244,63,232,0.05); }
+.hero-pill.p4 { color: var(--c4); border-color: rgba(249,115,22,0.28); background: rgba(249,115,22,0.05); }
+.hero-pill.p5 { color: var(--c5); border-color: rgba(234,179,8,0.28); background: rgba(234,179,8,0.05); }
+
+.hero-scroll {
+  position: absolute;
+  bottom: 1.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  opacity: 0;
+  animation: slideUp 0.9s 1.6s ease forwards;
+  color: var(--dim);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+.scroll-line {
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(to bottom, var(--c0), transparent);
+  animation: scrollPulse 2.2s ease infinite;
+}
+
+/* ─── SECTION SCAFFOLDING ────────────────────────────────── */
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6.5rem 2.5rem;
+}
+@media (max-width: 600px) { .wrap { padding: 5rem 1.5rem; } }
+
+.section-label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.63rem;
+  letter-spacing: 0.3em;
+  color: var(--c0);
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+.section-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.section-body {
+  color: var(--dim);
+  font-size: 0.9rem;
+  max-width: 540px;
+  margin-top: 0.8rem;
+  line-height: 1.8;
+}
+.section-head { margin-bottom: 3.5rem; }
+
+/* ─── ABOUT ──────────────────────────────────────────────── */
+#about { background: var(--bg); }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+@media (max-width: 750px) { .about-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.4rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--c0), transparent);
+}
+.stat-num {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--c0);
+  line-height: 1;
+  display: block;
+}
+.stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.18em;
+  color: var(--dim);
+  margin-top: 0.4rem;
+  display: block;
+}
+.about-body-extra {
+  margin-top: 1.2rem;
+  color: var(--dim);
+  font-size: 0.85rem;
+  line-height: 1.75;
+  border-left: 2px solid rgba(0,200,255,0.2);
+  padding-left: 1rem;
+}
+
+/* ─── STACK ──────────────────────────────────────────────── */
+#stack { background: var(--surface); }
+.stack-diagram {
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.stack-layer {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1.35rem 2rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--card);
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+  /* Scroll reveal — starts hidden */
+  opacity: 0;
+  transform: translateX(-18px);
+  transition: opacity 0.5s ease, transform 0.5s ease, background 0.22s;
+}
+.stack-layer.visible { opacity: 1; transform: translateX(0); }
+.stack-layer:last-child { border-bottom: none; }
+/* Left color bar */
+.stack-layer::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--lc);
+}
+/* Hover highlight */
+.stack-layer:hover { background: rgba(11,29,46,0.98); }
+/* Sweep glow on hover */
+.stack-layer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255,255,255,0.025) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.stack-layer:hover::after { opacity: 1; }
+
+/* Per-layer accent color */
+.sl-5 { --lc: var(--c5); }
+.sl-4 { --lc: var(--c4); }
+.sl-3 { --lc: var(--c3); }
+.sl-2 { --lc: var(--c2); }
+.sl-1 { --lc: var(--c1); }
+.sl-0 { --lc: var(--c0); }
+
+.layer-num-cell {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.56rem;
+  color: var(--dim);
+  text-align: center;
+}
+.layer-num-cell strong {
+  font-size: 1.5rem;
+  font-weight: 400;
+  display: block;
+  color: var(--lc);
+  line-height: 1;
+}
+.layer-info {}
+.layer-en-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--lc);
+  letter-spacing: 0.14em;
+  display: block;
+  margin-bottom: 0.15rem;
+}
+.layer-zh-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.layer-desc-text {
+  font-size: 0.78rem;
+  color: var(--dim);
+  line-height: 1.55;
+  margin-top: 0.25rem;
+}
+.layer-meta-col {
+  text-align: right;
+  flex-shrink: 0;
+}
+.doi-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--dim);
+  border: 1px solid var(--border);
+  padding: 0.22rem 0.65rem;
+  border-radius: 0.25rem;
+  display: inline-block;
+  white-space: nowrap;
+  letter-spacing: 0.06em;
+  transition: color 0.2s, border-color 0.2s;
+}
+.doi-btn:hover { color: var(--lc); border-color: var(--lc); }
+.layer-type-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.52rem;
+  color: var(--lc);
+  opacity: 0.55;
+  display: block;
+  margin-top: 0.5rem;
+  letter-spacing: 0.1em;
+}
+@media (max-width: 640px) {
+  .stack-layer {
+    grid-template-columns: 44px 1fr;
+    gap: 0.9rem;
+    padding: 1.1rem 1.2rem;
+  }
+  .layer-meta-col { display: none; }
+}
+
+/* ─── PROJECTS ───────────────────────────────────────────── */
+#projects { background: var(--bg); }
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.1rem;
+}
+@media (max-width: 900px) { .projects-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 550px)  { .projects-grid { grid-template-columns: 1fr; } }
+
+.proj-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-top-width: 2px;
+  border-top-color: var(--pc);
+  border-radius: 0.75rem;
+  padding: 1.65rem;
+  position: relative;
+  overflow: hidden;
+  /* Scroll reveal */
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.25s, border-color 0.25s;
+}
+.proj-card.visible { opacity: 1; transform: translateY(0); }
+.proj-card:hover {
+  box-shadow: 0 0 28px rgba(0,0,0,0.4);
+  border-color: var(--pc);
+}
+.proj-icon { font-size: 1.35rem; margin-bottom: 0.9rem; display: block; }
+.proj-en {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  color: var(--pc);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.proj-zh {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.55rem;
+}
+.proj-desc {
+  font-size: 0.78rem;
+  color: var(--dim);
+  line-height: 1.65;
+  margin-bottom: 1.3rem;
+}
+.proj-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.proj-doi-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.52rem;
+  color: var(--dim);
+  border: 1px solid var(--border);
+  padding: 0.2rem 0.55rem;
+  border-radius: 0.22rem;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+.proj-doi-link:hover { color: var(--pc); border-color: var(--pc); }
+.proj-status {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.48rem;
+  letter-spacing: 0.12em;
+  padding: 0.18rem 0.5rem;
+  border-radius: 0.2rem;
+  white-space: nowrap;
+}
+.proj-status.ok { color: #00FF88; background: rgba(0,255,136,0.08); }
+
+/* Per-project color classes */
+.pc0 { --pc: var(--c0); }
+.pc1 { --pc: var(--c1); }
+.pc2 { --pc: var(--c2); }
+.pc3 { --pc: var(--c3); }
+.pc4 { --pc: var(--c4); }
+.pc5 { --pc: var(--c5); }
+
+/* ─── HARDWARE ───────────────────────────────────────────── */
+#hardware { background: var(--surface); }
+#hardware .section-label { color: var(--hw); }
+#hardware .section-title { color: var(--hw); }
+.hw-grid {
+  background: rgba(11,29,46,0.9);
+  border: 1px solid rgba(245,158,11,0.22);
+  border-radius: 1rem;
+  padding: 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+@media (max-width: 680px) { .hw-grid { grid-template-columns: 1fr; gap: 2rem; } }
+.hw-main-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--hw);
+  line-height: 1;
+}
+.hw-main-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  color: rgba(245,158,11,0.5);
+  margin-bottom: 0.9rem;
+  display: block;
+}
+.hw-main-desc {
+  color: var(--dim);
+  font-size: 0.83rem;
+  line-height: 1.75;
+  margin-top: 0.75rem;
+}
+.hw-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+.hw-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  padding: 0.3rem 0.75rem;
+  border-radius: 0.3rem;
+  border: 1px solid;
+}
+.hw-badge.pass { color: #00FF88; border-color: rgba(0,255,136,0.3); background: rgba(0,255,136,0.06); }
+.hw-badge.target { color: var(--hw); border-color: rgba(245,158,11,0.3); background: rgba(245,158,11,0.06); }
+
+.hw-layers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.hw-layer-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.7rem 1rem;
+  background: rgba(245,158,11,0.04);
+  border: 1px solid rgba(245,158,11,0.1);
+  border-radius: 0.5rem;
+  transition: background 0.2s, border-color 0.2s;
+}
+.hw-layer-row:hover {
+  background: rgba(245,158,11,0.07);
+  border-color: rgba(245,158,11,0.2);
+}
+.hw-l-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  color: var(--hw);
+  opacity: 0.6;
+  flex-shrink: 0;
+  width: 22px;
+}
+.hw-l-name { font-size: 0.84rem; font-weight: 500; }
+.hw-l-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.52rem;
+  color: var(--dim);
+  margin-left: auto;
+}
+
+/* ─── CONTACT ────────────────────────────────────────────── */
+#contact { background: var(--bg); }
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+@media (max-width: 600px) { .contact-grid { grid-template-columns: 1fr; } }
+.contact-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 2rem;
+}
+.contact-card h3 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.contact-card p {
+  font-size: 0.82rem;
+  color: var(--dim);
+  line-height: 1.7;
+  margin-bottom: 1.35rem;
+}
+.link-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--c0);
+  border: 1px solid rgba(0,200,255,0.22);
+  padding: 0.45rem 0.9rem;
+  border-radius: 0.3rem;
+  transition: background 0.2s, border-color 0.2s;
+}
+.link-btn:hover { background: rgba(0,200,255,0.07); border-color: var(--c0); }
+.link-btn.amber { color: var(--hw); border-color: rgba(245,158,11,0.22); }
+.link-btn.amber:hover { background: rgba(245,158,11,0.07); border-color: var(--hw); }
+
+/* ─── FOOTER ─────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 1.75rem 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.footer-l, .footer-r {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  color: var(--dim);
+  letter-spacing: 0.1em;
+}
+
+/* ─── KEYFRAMES ──────────────────────────────────────────── */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes gradFlow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.25; }
+  50%       { opacity: 1; }
+}
+
+/* ─── REDUCED MOTION ─────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .hero-name-en {
+    background: var(--c0);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ───────────────────────────────────────────────── -->
+<nav id="nav">
+  <div class="nav-logo">MAO · 毛广辉</div>
+  <ul class="nav-links">
+    <li><a href="#stack">PCFS Stack</a></li>
+    <li><a href="#projects">Inventions</a></li>
+    <li><a href="#hardware">Hardware</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ─── HERO ──────────────────────────────────────────────── -->
+<div id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Independent Inventor · Xinzheng, Henan · China</p>
+    <div class="hero-name-wrap">
+      <span class="hero-name-en">Guanghui Mao</span>
+      <span class="hero-name-zh">毛 · 广 · 辉</span>
+    </div>
+    <p class="hero-subtitle">Photonic Computing Full Stack &mdash; Designed Solo</p>
+    <div class="hero-pills">
+      <span class="hero-pill">PLC · 光影芯片</span>
+      <span class="hero-pill p1">PSM · 光子存储</span>
+      <span class="hero-pill p2">STO · 影拓算子</span>
+      <span class="hero-pill p3">BitStar · 比星网络</span>
+      <span class="hero-pill p4">PEOS · 光子操作系统</span>
+      <span class="hero-pill p5">PCC-ENV · 光子意识层</span>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Explore</span>
+    <div class="scroll-line"></div>
+  </div>
+</div>
+
+<!-- ─── ABOUT ─────────────────────────────────────────────── -->
+<div id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <span class="section-label">About</span>
+        <h2 class="section-title">One engineer.<br/>Six invention layers.</h2>
+        <p class="section-body">
+          No lab. No institution. No external funding.<br/><br/>
+          Between 2025 and 2026, I designed, simulated, and documented a complete photonic computing stack — from the logic gate level to consciousness-environment fusion — entirely as an independent inventor.
+        </p>
+        <div class="about-body-extra">
+          Every layer is publicly timestamped on CERN Zenodo with SHA-256 hash chains. Every claim is independently verifiable. Licensed under MGOVL v2.0.
+        </div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <span class="stat-num">6</span>
+          <span class="stat-label">PCFS LAYERS</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">12+</span>
+          <span class="stat-label">ZENODO RECORDS</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">SHA256</span>
+          <span class="stat-label">PRIOR ART CHAIN</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">∞</span>
+          <span class="stat-label">MGOVL v2.0</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── STACK ─────────────────────────────────────────────── -->
+<div id="stack">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-label">Architecture</span>
+      <h2 class="section-title">Photonic Computing<br/>Full Stack</h2>
+      <p class="section-body">
+        Six layers — from photonic logic gates at the base to ambient room-scale consciousness at the apex. Light as computation, end to end.
+      </p>
+    </div>
+    <div class="stack-diagram">
+
+      <!-- L5: PCC-ENV -->
+      <div class="stack-layer sl-5">
+        <div class="layer-num-cell"><strong>L5</strong>APEX</div>
+        <div class="layer-info">
+          <span class="layer-en-tag">PCC-ENV · Photonic Conscious Computing</span>
+          <div class="layer-zh-name">光子意识·环境融合架构</div>
+          <p class="layer-desc-text">Ambient room light as a computation medium. Inspired by a 3 AM observation of refracted ceiling light. The philosophical apex of the PCFS stack — theory layer, not a product.</p>
+        </div>
+        <div class="layer-meta-col">
+          <a class="doi-btn" href="https://zenodo.org" target="_blank">Zenodo</a>
+          <span class="layer-type-tag">CONSCIOUSNESS</span>
+        </div>
+      </div>
+
+      <!-- L4: PEOS -->
+      <div class="stack-layer sl-4">
+        <div class="layer-num-cell"><strong>L4</strong>OS</div>
+        <div class="layer-info">
+          <span class="layer-en-tag">PEOS · Photonic Emergence Operating System</span>
+          <div class="layer-zh-name">光子涌现操作系统</div>
+          <p class="layer-desc-text">The first OS architecture designed natively for light-based computation. Interference-based process scheduling, photonic memory management, emergent kernel primitives.</p>
+        </div>
+        <div class="layer-meta-col">
+          <a class="doi-btn" href="https://zenodo.org/records/20603667" target="_blank">DOI 20603667</a>
+          <span class="layer-type-tag">SOFTWARE / OS</span>
+        </div>
+      </div>
+
+      <!-- L3: BitStar -->
+      <div class="stack-layer sl-3">
+        <div class="layer-num-cell"><strong>L3</strong>NET</div>
+        <div class="layer-info">
+          <span class="layer-en-tag">BitStar · Geographic Photonic Network</span>
+          <div class="layer-zh-name">比星网络 · 地理寻址协议</div>
+          <p class="layer-desc-text">GeoAddress Protocol replaces IP with 160-bit physical geographic coordinates. Gravity routing, link tiering, SLAP interplanetary extension, semantic cache routing.</p>
+        </div>
+        <div class="layer-meta-col">
+          <a class="doi-btn" href="https://github.com/maomaoati-coder" target="_blank">GitHub</a>
+          <span class="layer-type-tag">NETWORK</span>
+        </div>
+      </div>
+
+      <!-- L2: STO / PLC v2 -->
+      <div class="stack-layer sl-2">
+        <div class="layer-num-cell"><strong>L2</strong>ADV</div>
+        <div class="layer-info">
+          <span class="layer-en-tag">STO · Shadow Topology Operator / PLC v2</span>
+          <div class="layer-zh-name">影拓算子 · 光影芯片 v2</div>
+          <p class="layer-desc-text">Extends PLC to higher-dimensional beam-propagation phase spaces. Shadow topological states encode computation inaccessible to classical Boolean logic.</p>
+        </div>
+        <div class="layer-meta-col">
+          <a class="doi-btn" href="https://zenodo.org/records/20777359" target="_blank">DOI 20777359</a>
+          <span class="layer-type-tag">ADVANCED LOGIC</span>
+        </div>
+      </div>
+
+      <!-- L1: PSM -->
+      <div class="stack-layer sl-1">
+        <div class="layer-num-cell"><strong>L1</strong>MEM</div>
+        <div class="layer-info">
+          <span class="layer-en-tag">PSM · Photonic State Memory</span>
+          <div class="layer-zh-name">光子状态存储</div>
+          <p class="layer-desc-text">Non-volatile photonic memory via liquid-crystal polarization states. Persistent storage layer for computed photonic logic results — bridging PLC gates to the upper stack.</p>
+        </div>
+        <div class="layer-meta-col">
+          <a class="doi-btn" href="https://zenodo.org/records/20603456" target="_blank">DOI 20603456</a>
+          <span class="layer-type-tag">MEMORY</span>
+        </div>
+      </div>
+
+      <!-- L0: PLC -->
+      <div class="stack-layer sl-0">
+        <div class="layer-num-cell"><strong>L0</strong>CORE</div>
+        <div class="layer-info">
+          <span class="layer-en-tag">PLC · Photonic Logic Chip</span>
+          <div class="layer-zh-name">光影芯片 · 光子逻辑门</div>
+          <p class="layer-desc-text">The founding invention: light beam propagation angle through a liquid-crystal film encodes Boolean logic state. 12-version prior art chain secured on CERN Zenodo.</p>
+        </div>
+        <div class="layer-meta-col">
+          <a class="doi-btn" href="https://zenodo.org/records/19801651" target="_blank">DOI 19801651</a>
+          <span class="layer-type-tag">FOUNDATION</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ─── PROJECTS ──────────────────────────────────────────── -->
+<div id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-label">Inventions</span>
+      <h2 class="section-title">Individual Projects</h2>
+      <p class="section-body">Each invention is an independently documented, publicly timestamped prior art record. All rights reserved under MGOVL v2.0.</p>
+    </div>
+    <div class="projects-grid">
+
+      <div class="proj-card pc0">
+        <span class="proj-icon">〇</span>
+        <span class="proj-en">PLC · Foundation Logic</span>
+        <div class="proj-zh">光影芯片</div>
+        <p class="proj-desc">Light beam angles through liquid-crystal film as Boolean logic gates. The founding invention. 12 prior art versions with complete SHA-256 hash chain on CERN Zenodo.</p>
+        <div class="proj-footer">
+          <a class="proj-doi-link" href="https://zenodo.org/records/19801651" target="_blank">DOI 19801651</a>
+          <span class="proj-status ok">SECURED</span>
+        </div>
+      </div>
+
+      <div class="proj-card pc1">
+        <span class="proj-icon">◈</span>
+        <span class="proj-en">PSM · Memory Layer</span>
+        <div class="proj-zh">光子状态存储</div>
+        <p class="proj-desc">Persistent photonic memory via LC polarization states. Non-volatile storage layer enabling photonic logic results to be retained and retrieved across computation cycles.</p>
+        <div class="proj-footer">
+          <a class="proj-doi-link" href="https://zenodo.org/records/20603456" target="_blank">DOI 20603456</a>
+          <span class="proj-status ok">SECURED</span>
+        </div>
+      </div>
+
+      <div class="proj-card pc2">
+        <span class="proj-icon">⬡</span>
+        <span class="proj-en">STO · Advanced Logic</span>
+        <div class="proj-zh">影拓算子</div>
+        <p class="proj-desc">Shadow Topology Operator — a second-generation PLC extending to higher-dimensional phase spaces. Multi-beam interference as a computational substrate.</p>
+        <div class="proj-footer">
+          <a class="proj-doi-link" href="https://zenodo.org/records/20777359" target="_blank">DOI 20777359</a>
+          <span class="proj-status ok">SECURED</span>
+        </div>
+      </div>
+
+      <div class="proj-card pc3">
+        <span class="proj-icon">✦</span>
+        <span class="proj-en">BitStar · Network Protocol</span>
+        <div class="proj-zh">比星网络</div>
+        <p class="proj-desc">Geographic routing protocol replacing IP addressing with 160-bit physical coordinates. Gravity routing, tiered links, and interplanetary SLAP protocol extension.</p>
+        <div class="proj-footer">
+          <a class="proj-doi-link" href="https://github.com/maomaoati-coder" target="_blank">GitHub</a>
+          <span class="proj-status ok">SECURED</span>
+        </div>
+      </div>
+
+      <div class="proj-card pc4">
+        <span class="proj-icon">⟁</span>
+        <span class="proj-en">PEOS · OS Layer</span>
+        <div class="proj-zh">光子涌现操作系统</div>
+        <p class="proj-desc">First OS designed natively for photonic computation. Interference-based process arbitration, emergent scheduling without a clock, photonic syscall architecture.</p>
+        <div class="proj-footer">
+          <a class="proj-doi-link" href="https://zenodo.org/records/20603667" target="_blank">DOI 20603667</a>
+          <span class="proj-status ok">SECURED</span>
+        </div>
+      </div>
+
+      <div class="proj-card pc5">
+        <span class="proj-icon">◉</span>
+        <span class="proj-en">PCC-ENV · Consciousness</span>
+        <div class="proj-zh">光子意识·环境融合</div>
+        <p class="proj-desc">Ambient photonic consciousness layer. Born from a 3 AM observation of refracted ceiling light. Room-scale computation medium as the philosophical apex of the stack.</p>
+        <div class="proj-footer">
+          <a class="proj-doi-link" href="https://github.com/maomaoati-coder" target="_blank">GitHub</a>
+          <span class="proj-status ok">SECURED</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ─── HARDWARE ──────────────────────────────────────────── -->
+<div id="hardware">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-label">Real-World Bridge</span>
+      <h2 class="section-title">凌控核 &nbsp;<span style="font-size:0.45em;color:var(--dim);font-weight:400;vertical-align:middle;">LingKong Core</span></h2>
+      <p class="section-body">While the PCFS awaits its photonic dawn, LingKong Core bridges today — a fully verified Edge-AI MCU with INT8 inference, simulated end-to-end.</p>
+    </div>
+    <div class="hw-grid">
+      <div>
+        <span class="hw-main-sub">EDGE-AI MCU ARCHITECTURE · 5 LAYERS</span>
+        <div class="hw-main-title">凌控核</div>
+        <p class="hw-main-desc">
+          A complete 5-layer Edge-AI MC

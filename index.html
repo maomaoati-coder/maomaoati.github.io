@@ -3,692 +3,302 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Guanghui Mao · Photonic Computing Inventor</title>
-<!-- Primary CDN: Font delivery via loli.net mirror -->
-<link rel="preconnect" href="https://fonts.loli.net" crossorigin />
-<link href="https://fonts.loli.net/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<!-- Backup CDN: Google Fonts fallback for international traffic -->
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" onerror="this.remove()" />
+<title>Guanghui Mao — Photonic Computing Inventor</title>
 <style>
-/* ─── RESET ─────────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-
-/* ─── TOKENS ─────────────────────────────────────────────── */
+/* ── TOKENS ── */
 :root {
-  --bg:      #040C15;
-  --surface: #071421;
-  --card:    #0B1D2E;
-  --border:  rgba(0,200,255,0.10);
-  --text:    #D6EEFF;
-  --dim:     #4A6A84;
-  /* Layer accent colors L0 to L5 */
-  --c0: #00C8FF;
-  --c1: #00FFCD;
-  --c2: #8B5CF6;
-  --c3: #F43FE8;
-  --c4: #F97316;
-  --c5: #EAB308;
-  --hw: #F59E0B;
+  --bg:     #040C15;
+  --surf:   #071421;
+  --card:   #0B1D2E;
+  --bdr:    rgba(0,200,255,0.12);
+  --text:   #D6EEFF;
+  --dim:    #4A6A84;
+  --c0:#00C8FF; --c1:#00FFCD; --c2:#8B5CF6;
+  --c3:#F43FE8; --c4:#F97316; --c5:#EAB308;
+  --hw:#F59E0B;
+  --fhead: Impact, 'Arial Black', 'Arial Narrow', Arial, sans-serif;
+  --fbody: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  --fmono: 'Courier New', Courier, monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--fbody);font-size:16px;line-height:1.6;overflow-x:hidden;}
+a{color:inherit;text-decoration:none;}
+
+/* ── NAV ── */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.85rem 2.5rem;
+  background:rgba(4,12,21,.88);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--bdr);
+  transition:background .3s;
+}
+.nav-logo{font-family:var(--fhead);font-size:1rem;letter-spacing:.18em;color:var(--c0);}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-family:var(--fmono);font-size:.62rem;letter-spacing:.2em;color:var(--dim);transition:color .2s;text-transform:uppercase;}
+.nav-links a:hover{color:var(--c0);}
+@media(max-width:600px){.nav-links{display:none;}}
+
+/* ── HERO ── */
+#hero{
+  position:relative;height:100vh;min-height:560px;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+#hero-canvas{
+  position:absolute;inset:0;width:100%;height:100%;
+  background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(0,200,255,.07) 0%,transparent 65%),
+             radial-gradient(ellipse 50% 40% at 72% 58%,rgba(139,92,246,.05) 0%,transparent 55%);
+}
+#hero::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 55% at 50% 50%,transparent 30%,rgba(4,12,21,.78) 100%);
+  pointer-events:none;z-index:1;
+}
+.hero-inner{position:relative;z-index:2;text-align:center;padding:0 2rem;}
+
+.hero-eye{
+  font-family:var(--fmono);font-size:.65rem;letter-spacing:.32em;color:var(--c0);
+  text-transform:uppercase;margin-bottom:1.6rem;
+  opacity:0;animation:up .9s .4s cubic-bezier(.22,1,.36,1) forwards;
+}
+.hero-name{
+  font-family:var(--fhead);
+  font-size:clamp(3.5rem,12vw,9rem);
+  font-weight:900;line-height:.9;letter-spacing:-.01em;
+  display:block;
+  background:linear-gradient(130deg,#00C8FF 0%,#9B6FFF 45%,#00C8FF 100%);
+  background-size:220% 220%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;color:var(--c0);
+  opacity:0;
+  animation:up .9s .6s cubic-bezier(.22,1,.36,1) forwards,
+            gf 5s 1.5s ease-in-out infinite;
+}
+@supports not (-webkit-background-clip:text){
+  .hero-name{background:none;-webkit-text-fill-color:var(--c0);color:var(--c0);}
+}
+.hero-sub{
+  font-family:var(--fhead);font-size:clamp(.85rem,2.2vw,1.25rem);
+  letter-spacing:.14em;color:rgba(214,238,255,.45);
+  margin:1.5rem 0 2.2rem;
+  opacity:0;animation:up .9s .8s cubic-bezier(.22,1,.36,1) forwards;
+}
+.pills{
+  display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center;
+  opacity:0;animation:up .9s 1s cubic-bezier(.22,1,.36,1) forwards;
+}
+.pill{
+  font-family:var(--fmono);font-size:.58rem;letter-spacing:.14em;
+  border:1px solid;border-radius:100px;padding:.28rem .8rem;
+}
+.p0{color:var(--c0);border-color:rgba(0,200,255,.3);background:rgba(0,200,255,.05);}
+.p1{color:var(--c1);border-color:rgba(0,255,205,.3);background:rgba(0,255,205,.05);}
+.p2{color:var(--c2);border-color:rgba(139,92,246,.3);background:rgba(139,92,246,.05);}
+.p3{color:var(--c3);border-color:rgba(244,63,232,.3);background:rgba(244,63,232,.05);}
+.p4{color:var(--c4);border-color:rgba(249,115,22,.3);background:rgba(249,115,22,.05);}
+.p5{color:var(--c5);border-color:rgba(234,179,8,.3);background:rgba(234,179,8,.05);}
+
+.hero-scroll{
+  position:absolute;bottom:1.8rem;left:50%;transform:translateX(-50%);
+  z-index:2;display:flex;flex-direction:column;align-items:center;gap:.4rem;
+  opacity:0;animation:up .9s 1.6s ease forwards;
+  color:var(--dim);font-family:var(--fmono);font-size:.55rem;letter-spacing:.25em;
+}
+.scroll-line{
+  width:1px;height:44px;
+  background:linear-gradient(to bottom,var(--c0),transparent);
+  animation:sp 2.2s ease infinite;
 }
 
-/* ─── BASE ───────────────────────────────────────────────── */
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-  overflow-x: hidden;
+/* ── LAYOUT ── */
+.wrap{max-width:1200px;margin:0 auto;padding:6.5rem 2.5rem;}
+@media(max-width:600px){.wrap{padding:5rem 1.5rem;}}
+.sec-label{
+  display:block;font-family:var(--fmono);font-size:.62rem;
+  letter-spacing:.3em;color:var(--c0);text-transform:uppercase;margin-bottom:.6rem;
 }
-a { color: inherit; text-decoration: none; }
+.sec-title{
+  font-family:var(--fhead);font-size:clamp(2rem,5vw,3.6rem);
+  font-weight:900;line-height:1.05;
+}
+.sec-body{color:var(--dim);font-size:.9rem;max-width:540px;margin-top:.8rem;line-height:1.8;}
+.sec-head{margin-bottom:3.5rem;}
 
-/* ─── NAV ────────────────────────────────────────────────── */
-#nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.9rem 2.5rem;
-  background: rgba(4,12,21,0.82);
-  backdrop-filter: blur(18px);
-  border-bottom: 1px solid var(--border);
-  transition: background 0.3s;
+/* ── ABOUT ── */
+#about{background:var(--bg);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;}
+@media(max-width:750px){.about-grid{grid-template-columns:1fr;gap:2.5rem;}}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.stat-card{
+  background:var(--card);border:1px solid var(--bdr);border-radius:.75rem;
+  padding:1.4rem 1.5rem;position:relative;overflow:hidden;
 }
-.nav-logo {
-  font-family: 'Rajdhani', Impact, sans-serif;
-  font-weight: 700;
-  font-size: 0.95rem;
-  letter-spacing: 0.18em;
-  color: var(--c0);
+.stat-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--c0),transparent);
 }
-.nav-links {
-  display: flex;
-  gap: 2rem;
-  list-style: none;
+.stat-num{
+  font-family:var(--fhead);font-size:2.4rem;font-weight:900;
+  color:var(--c0);line-height:1;display:block;
 }
-.nav-links a {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.22em;
-  color: var(--dim);
-  transition: color 0.2s;
-  text-transform: uppercase;
+.stat-lbl{
+  font-family:var(--fmono);font-size:.55rem;letter-spacing:.18em;
+  color:var(--dim);margin-top:.4rem;display:block;
 }
-.nav-links a:hover { color: var(--c0); }
-@media (max-width: 600px) { .nav-links { display: none; } }
-
-/* ─── HERO ───────────────────────────────────────────────── */
-#hero {
-  position: relative;
-  height: 100vh;
-  min-height: 560px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-#hero-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(0,200,255,0.08) 0%, transparent 60%),
-              radial-gradient(ellipse 50% 40% at 70% 60%, rgba(139,92,246,0.06) 0%, transparent 50%);
-}
-#hero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 70% 60% at 50% 50%, transparent 30%, rgba(4,12,21,0.75) 100%);
-  pointer-events: none;
-  z-index: 1;
-}
-.hero-inner {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  padding: 0 2rem;
-}
-.hero-eyebrow {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.32em;
-  color: var(--c0);
-  text-transform: uppercase;
-  margin-bottom: 1.6rem;
-  opacity: 0;
-  animation: slideUp 0.9s 0.4s cubic-bezier(0.22,1,0.36,1) forwards;
-}
-.hero-name-wrap {
-  opacity: 0;
-  animation: slideUp 0.9s 0.6s cubic-bezier(0.22,1,0.36,1) forwards;
-}
-.hero-name-en {
-  font-family: 'Rajdhani', Impact, sans-serif;
-  font-size: clamp(3.8rem, 13vw, 9.5rem);
-  font-weight: 700;
-  line-height: 0.88;
-  letter-spacing: -0.025em;
-  display: block;
-  color: var(--c0);
-  background: linear-gradient(130deg, #00C8FF 0%, #9B6FFF 45%, #00C8FF 100%);
-  background-size: 220% 220%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: slideUp 0.9s 0.6s cubic-bezier(0.22,1,0.36,1) forwards,
-             gradFlow 5s 1.5s ease-in-out infinite;
-}
-@supports not (-webkit-background-clip: text) {
-  .hero-name-en {
-    background: none;
-    color: var(--c0);
-  }
-}
-.hero-name-zh {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: clamp(0.7rem, 1.8vw, 0.85rem);
-  color: var(--dim);
-  letter-spacing: 0.5em;
-  margin-top: 0.8em;
-  display: block;
-  font-weight: 400;
-  text-transform: uppercase;
-  -webkit-text-fill-color: var(--dim);
-}
-.hero-subtitle {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: clamp(0.85rem, 2.2vw, 1.2rem);
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  color: rgba(214,238,255,0.45);
-  margin: 1.6rem 0 2.2rem;
-  opacity: 0;
-  animation: slideUp 0.9s 0.8s cubic-bezier(0.22,1,0.36,1) forwards;
-  -webkit-text-fill-color: rgba(214,238,255,0.45);
-}
-.hero-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
-  justify-content: center;
-  opacity: 0;
-  animation: slideUp 0.9s 1.0s cubic-bezier(0.22,1,0.36,1) forwards;
-}
-.hero-pill {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.58rem;
-  letter-spacing: 0.14em;
-  color: var(--c0);
-  border: 1px solid rgba(0,200,255,0.28);
-  padding: 0.28rem 0.8rem;
-  border-radius: 100px;
-  background: rgba(0,200,255,0.05);
-  text-transform: uppercase;
-}
-.hero-pill.p1 { color: var(--c1); border-color: rgba(0,255,205,0.28); background: rgba(0,255,205,0.05); }
-.hero-pill.p2 { color: var(--c2); border-color: rgba(139,92,246,0.28); background: rgba(139,92,246,0.05); }
-.hero-pill.p3 { color: var(--c3); border-color: rgba(244,63,232,0.28); background: rgba(244,63,232,0.05); }
-.hero-pill.p4 { color: var(--c4); border-color: rgba(249,115,22,0.28); background: rgba(249,115,22,0.05); }
-.hero-pill.p5 { color: var(--c5); border-color: rgba(234,179,8,0.28); background: rgba(234,179,8,0.05); }
-
-.hero-scroll {
-  position: absolute;
-  bottom: 1.8rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.4rem;
-  opacity: 0;
-  animation: slideUp 0.9s 1.6s ease forwards;
-  color: var(--dim);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.56rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-}
-.scroll-line {
-  width: 1px;
-  height: 44px;
-  background: linear-gradient(to bottom, var(--c0), transparent);
-  animation: scrollPulse 2.2s ease infinite;
+.about-note{
+  margin-top:1.2rem;color:var(--dim);font-size:.85rem;line-height:1.75;
+  border-left:2px solid rgba(0,200,255,.22);padding-left:1rem;
 }
 
-/* ─── SECTION SCAFFOLDING ────────────────────────────────── */
-.wrap {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 6.5rem 2.5rem;
+/* ── STACK ── */
+#stack{background:var(--surf);}
+.stack-box{border:1px solid var(--bdr);border-radius:1rem;overflow:hidden;}
+.sl{
+  display:grid;grid-template-columns:60px 1fr auto;
+  gap:1.5rem;align-items:center;
+  padding:1.35rem 2rem;border-bottom:1px solid var(--bdr);
+  background:var(--card);position:relative;overflow:hidden;cursor:default;
+  opacity:0;transform:translateX(-18px);
+  transition:opacity .5s ease,transform .5s ease,background .22s;
 }
-@media (max-width: 600px) { .wrap { padding: 5rem 1.5rem; } }
+.sl.vis{opacity:1;transform:translateX(0);}
+.sl:last-child{border-bottom:none;}
+.sl::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--lc);}
+.sl::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(255,255,255,.025) 0%,transparent 60%);
+  opacity:0;transition:opacity .25s;
+}
+.sl:hover::after{opacity:1;}
+.sl:hover{background:rgba(11,29,46,.98);}
+.sl5{--lc:var(--c5);} .sl4{--lc:var(--c4);} .sl3{--lc:var(--c3);}
+.sl2{--lc:var(--c2);} .sl1{--lc:var(--c1);} .sl0{--lc:var(--c0);}
 
-.section-label {
-  display: block;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.63rem;
-  letter-spacing: 0.3em;
-  color: var(--c0);
-  text-transform: uppercase;
-  margin-bottom: 0.6rem;
+.l-num{font-family:var(--fmono);font-size:.55rem;color:var(--dim);text-align:center;}
+.l-num strong{font-size:1.5rem;font-weight:700;display:block;color:var(--lc);line-height:1;}
+.l-tag{font-family:var(--fmono);font-size:.6rem;color:var(--lc);letter-spacing:.14em;display:block;margin-bottom:.15rem;}
+.l-title{font-size:1.05rem;font-weight:600;line-height:1.3;}
+.l-desc{font-size:.78rem;color:var(--dim);line-height:1.55;margin-top:.25rem;}
+.l-meta{text-align:right;flex-shrink:0;}
+.doi-btn{
+  font-family:var(--fmono);font-size:.54rem;color:var(--dim);
+  border:1px solid var(--bdr);padding:.22rem .65rem;border-radius:.25rem;
+  display:inline-block;white-space:nowrap;letter-spacing:.05em;
+  transition:color .2s,border-color .2s;
 }
-.section-title {
-  font-family: 'Rajdhani', Impact, sans-serif;
-  font-size: clamp(2rem, 5vw, 3.6rem);
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-}
-.section-body {
-  color: var(--dim);
-  font-size: 0.9rem;
-  max-width: 540px;
-  margin-top: 0.8rem;
-  line-height: 1.8;
-}
-.section-head { margin-bottom: 3.5rem; }
-
-/* ─── ABOUT ──────────────────────────────────────────────── */
-#about { background: var(--bg); }
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3.5rem;
-  align-items: center;
-}
-@media (max-width: 750px) { .about-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
-.stat-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-.stat-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 0.75rem;
-  padding: 1.4rem 1.5rem;
-  position: relative;
-  overflow: hidden;
-}
-.stat-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--c0), transparent);
-}
-.stat-num {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: var(--c0);
-  line-height: 1;
-  display: block;
-}
-.stat-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.56rem;
-  letter-spacing: 0.18em;
-  color: var(--dim);
-  margin-top: 0.4rem;
-  display: block;
-}
-.about-body-extra {
-  margin-top: 1.2rem;
-  color: var(--dim);
-  font-size: 0.85rem;
-  line-height: 1.75;
-  border-left: 2px solid rgba(0,200,255,0.2);
-  padding-left: 1rem;
+.doi-btn:hover{color:var(--lc);border-color:var(--lc);}
+.l-type{font-family:var(--fmono);font-size:.5rem;color:var(--lc);opacity:.5;display:block;margin-top:.5rem;letter-spacing:.1em;}
+@media(max-width:640px){
+  .sl{grid-template-columns:44px 1fr;gap:.9rem;padding:1.1rem 1.2rem;}
+  .l-meta{display:none;}
 }
 
-/* ─── STACK ──────────────────────────────────────────────── */
-#stack { background: var(--surface); }
-.stack-diagram {
-  border: 1px solid var(--border);
-  border-radius: 1rem;
-  overflow: hidden;
-}
-.stack-layer {
-  display: grid;
-  grid-template-columns: 56px 1fr auto;
-  gap: 1.5rem;
-  align-items: center;
-  padding: 1.35rem 2rem;
-  border-bottom: 1px solid var(--border);
-  background: var(--card);
-  cursor: default;
-  position: relative;
-  overflow: hidden;
-  opacity: 1;
-  transform: translateX(0);
-  transition: opacity 0.5s ease, transform 0.5s ease, background 0.22s;
-}
-.stack-layer:last-child { border-bottom: none; }
-.stack-layer::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 3px;
-  background: var(--lc);
-}
-.stack-layer:hover { background: rgba(11,29,46,0.98); }
-.stack-layer::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(255,255,255,0.025) 0%, transparent 60%);
-  opacity: 0;
-  transition: opacity 0.25s;
-}
-.stack-layer:hover::after { opacity: 1; }
+/* ── PROJECTS ── */
+#projects{background:var(--bg);}
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;}
+@media(max-width:900px){.proj-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:550px){.proj-grid{grid-template-columns:1fr;}}
 
-.sl-5 { --lc: var(--c5); }
-.sl-4 { --lc: var(--c4); }
-.sl-3 { --lc: var(--c3); }
-.sl-2 { --lc: var(--c2); }
-.sl-1 { --lc: var(--c1); }
-.sl-0 { --lc: var(--c0); }
+.pc{
+  background:var(--card);border:1px solid var(--bdr);
+  border-top:2px solid var(--pc);border-radius:.75rem;
+  padding:1.65rem;position:relative;overflow:hidden;
+  opacity:0;transform:translateY(18px);
+  transition:opacity .5s ease,transform .5s ease,box-shadow .25s;
+}
+.pc.vis{opacity:1;transform:translateY(0);}
+.pc:hover{box-shadow:0 0 30px rgba(0,0,0,.45);}
+.p-ico{font-size:1.3rem;margin-bottom:.9rem;display:block;}
+.p-tag{font-family:var(--fmono);font-size:.58rem;letter-spacing:.2em;color:var(--pc);display:block;margin-bottom:.2rem;}
+.p-name{font-family:var(--fhead);font-size:1.2rem;font-weight:900;margin-bottom:.5rem;}
+.p-desc{font-size:.78rem;color:var(--dim);line-height:1.65;margin-bottom:1.3rem;}
+.p-foot{display:flex;align-items:center;justify-content:space-between;gap:.5rem;}
+.p-doi{
+  font-family:var(--fmono);font-size:.52rem;color:var(--dim);
+  border:1px solid var(--bdr);padding:.2rem .55rem;border-radius:.22rem;
+  transition:color .2s,border-color .2s;white-space:nowrap;
+}
+.p-doi:hover{color:var(--pc);border-color:var(--pc);}
+.p-ok{
+  font-family:var(--fmono);font-size:.48rem;letter-spacing:.12em;
+  padding:.18rem .5rem;border-radius:.2rem;
+  color:#00FF88;background:rgba(0,255,136,.08);white-space:nowrap;
+}
+.c0{--pc:var(--c0);} .c1{--pc:var(--c1);} .c2{--pc:var(--c2);}
+.c3{--pc:var(--c3);} .c4{--pc:var(--c4);} .c5{--pc:var(--c5);}
 
-.layer-num-cell {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.56rem;
-  color: var(--dim);
-  text-align: center;
+/* ── HARDWARE ── */
+#hardware{background:var(--surf);}
+#hardware .sec-label{color:var(--hw);}
+#hardware .sec-title{color:var(--hw);}
+.hw-box{
+  background:rgba(11,29,46,.9);border:1px solid rgba(245,158,11,.22);
+  border-radius:1rem;padding:2.5rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;
 }
-.layer-num-cell strong {
-  font-size: 1.5rem;
-  font-weight: 400;
-  display: block;
-  color: var(--lc);
-  line-height: 1;
+@media(max-width:680px){.hw-box{grid-template-columns:1fr;gap:2rem;}}
+.hw-title{font-family:var(--fhead);font-size:2rem;font-weight:900;color:var(--hw);line-height:1;}
+.hw-sub{font-family:var(--fmono);font-size:.6rem;letter-spacing:.2em;color:rgba(245,158,11,.5);margin-bottom:.9rem;display:block;}
+.hw-desc{color:var(--dim);font-size:.83rem;line-height:1.75;margin-top:.75rem;}
+.hw-bdgs{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.5rem;}
+.hw-bdg{font-family:var(--fmono);font-size:.54rem;letter-spacing:.1em;padding:.3rem .75rem;border-radius:.3rem;border:1px solid;}
+.hw-pass{color:#00FF88;border-color:rgba(0,255,136,.3);background:rgba(0,255,136,.06);}
+.hw-tgt{color:var(--hw);border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.06);}
+.hw-list{display:flex;flex-direction:column;gap:.55rem;}
+.hw-row{
+  display:flex;align-items:center;gap:.8rem;
+  padding:.7rem 1rem;
+  background:rgba(245,158,11,.04);border:1px solid rgba(245,158,11,.1);
+  border-radius:.5rem;transition:background .2s,border-color .2s;
 }
-.layer-en-tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
-  color: var(--lc);
-  letter-spacing: 0.14em;
-  display: block;
-  margin-bottom: 0.15rem;
-}
-.layer-zh-name {
-  font-size: 1.1rem;
-  font-weight: 600;
-  line-height: 1.3;
-}
-.layer-desc-text {
-  font-size: 0.78rem;
-  color: var(--dim);
-  line-height: 1.55;
-  margin-top: 0.25rem;
-}
-.layer-meta-col {
-  text-align: right;
-  flex-shrink: 0;
-}
-.doi-btn {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.55rem;
-  color: var(--dim);
-  border: 1px solid var(--border);
-  padding: 0.22rem 0.65rem;
-  border-radius: 0.25rem;
-  display: inline-block;
-  white-space: nowrap;
-  letter-spacing: 0.06em;
-  transition: color 0.2s, border-color 0.2s;
-}
-.doi-btn:hover { color: var(--lc); border-color: var(--lc); }
-.layer-type-tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.52rem;
-  color: var(--lc);
-  opacity: 0.55;
-  display: block;
-  margin-top: 0.5rem;
-  letter-spacing: 0.1em;
-}
-@media (max-width: 640px) {
-  .stack-layer {
-    grid-template-columns: 44px 1fr;
-    gap: 0.9rem;
-    padding: 1.1rem 1.2rem;
-  }
-  .layer-meta-col { display: none; }
-}
+.hw-row:hover{background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.22);}
+.hw-n{font-family:var(--fmono);font-size:.56rem;color:var(--hw);opacity:.6;flex-shrink:0;width:22px;}
+.hw-nm{font-size:.84rem;font-weight:500;}
+.hw-t{font-family:var(--fmono);font-size:.5rem;color:var(--dim);margin-left:auto;}
 
-/* ─── PROJECTS ───────────────────────────────────────────── */
-#projects { background: var(--bg); }
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.1rem;
+/* ── CONTACT ── */
+#contact{background:var(--bg);}
+.con-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+@media(max-width:600px){.con-grid{grid-template-columns:1fr;}}
+.con-card{background:var(--card);border:1px solid var(--bdr);border-radius:.75rem;padding:2rem;}
+.con-card h3{font-family:var(--fhead);font-size:1.3rem;font-weight:900;margin-bottom:.5rem;}
+.con-card p{font-size:.82rem;color:var(--dim);line-height:1.7;margin-bottom:1.35rem;}
+.lrow{display:flex;flex-wrap:wrap;gap:.5rem;}
+.lbtn{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-family:var(--fmono);font-size:.6rem;letter-spacing:.1em;
+  color:var(--c0);border:1px solid rgba(0,200,255,.22);
+  padding:.45rem .9rem;border-radius:.3rem;transition:background .2s,border-color .2s;
 }
-@media (max-width: 900px) { .projects-grid { grid-template-columns: repeat(2,1fr); } }
-@media (max-width: 550px)  { .projects-grid { grid-template-columns: 1fr; } }
+.lbtn:hover{background:rgba(0,200,255,.07);border-color:var(--c0);}
+.lbtn.a{color:var(--hw);border-color:rgba(245,158,11,.22);}
+.lbtn.a:hover{background:rgba(245,158,11,.07);border-color:var(--hw);}
 
-.proj-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-top-width: 2px;
-  border-top-color: var(--pc);
-  border-radius: 0.75rem;
-  padding: 1.65rem;
-  position: relative;
-  overflow: hidden;
-  opacity: 1;
-  transform: translateY(0);
-  transition: box-shadow 0.25s, border-color 0.25s;
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid var(--bdr);padding:1.75rem 2.5rem;
+  max-width:1200px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:.75rem;
 }
-.proj-card:hover {
-  box-shadow: 0 0 28px rgba(0,0,0,0.4);
-  border-color: var(--pc);
-}
-.proj-icon { font-size: 1.35rem; margin-bottom: 0.9rem; display: block; color: var(--pc); }
-.proj-en {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.58rem;
-  letter-spacing: 0.2em;
-  color: var(--pc);
-  display: block;
-  margin-bottom: 0.2rem;
-}
-.proj-zh {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 0.55rem;
-}
-.proj-desc {
-  font-size: 0.78rem;
-  color: var(--dim);
-  line-height: 1.65;
-  margin-bottom: 1.3rem;
-}
-.proj-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-}
-.proj-doi-link {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.52rem;
-  color: var(--dim);
-  border: 1px solid var(--border);
-  padding: 0.2rem 0.55rem;
-  border-radius: 0.22rem;
-  transition: color 0.2s, border-color 0.2s;
-  white-space: nowrap;
-}
-.proj-doi-link:hover { color: var(--pc); border-color: var(--pc); }
-.proj-status {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.48rem;
-  letter-spacing: 0.12em;
-  padding: 0.18rem 0.5rem;
-  border-radius: 0.2rem;
-  white-space: nowrap;
-}
-.proj-status.ok { color: #00FF88; background: rgba(0,255,136,0.08); }
+.ft{font-family:var(--fmono);font-size:.57rem;color:var(--dim);letter-spacing:.1em;}
 
-.pc0 { --pc: var(--c0); }
-.pc1 { --pc: var(--c1); }
-.pc2 { --pc: var(--c2); }
-.pc3 { --pc: var(--c3); }
-.pc4 { --pc: var(--c4); }
-.pc5 { --pc: var(--c5); }
-
-/* ─── HARDWARE ───────────────────────────────────────────── */
-#hardware { background: var(--surface); }
-#hardware .section-label { color: var(--hw); }
-#hardware .section-title { color: var(--hw); }
-.hw-grid {
-  background: rgba(11,29,46,0.9);
-  border: 1px solid rgba(245,158,11,0.22);
-  border-radius: 1rem;
-  padding: 2.5rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  align-items: start;
-}
-@media (max-width: 680px) { .hw-grid { grid-template-columns: 1fr; gap: 2rem; } }
-.hw-main-title {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: var(--hw);
-  line-height: 1;
-}
-.hw-main-sub {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.2em;
-  color: rgba(245,158,11,0.5);
-  margin-bottom: 0.9rem;
-  display: block;
-}
-.hw-main-desc {
-  color: var(--dim);
-  font-size: 0.83rem;
-  line-height: 1.75;
-  margin-top: 0.75rem;
-}
-.hw-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-top: 1.5rem;
-}
-.hw-badge {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.56rem;
-  letter-spacing: 0.1em;
-  padding: 0.3rem 0.75rem;
-  border-radius: 0.3rem;
-  border: 1px solid;
-}
-.hw-badge.pass { color: #00FF88; border-color: rgba(0,255,136,0.3); background: rgba(0,255,136,0.06); }
-.hw-badge.target { color: var(--hw); border-color: rgba(245,158,11,0.3); background: rgba(245,158,11,0.06); }
-
-.hw-layers-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-}
-.hw-layer-row {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  padding: 0.7rem 1rem;
-  background: rgba(245,158,11,0.04);
-  border: 1px solid rgba(245,158,11,0.1);
-  border-radius: 0.5rem;
-  transition: background 0.2s, border-color 0.2s;
-}
-.hw-layer-row:hover {
-  background: rgba(245,158,11,0.07);
-  border-color: rgba(245,158,11,0.2);
-}
-.hw-l-num {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.58rem;
-  color: var(--hw);
-  opacity: 0.6;
-  flex-shrink: 0;
-  width: 22px;
-}
-.hw-l-name { font-size: 0.84rem; font-weight: 500; }
-.hw-l-tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.52rem;
-  color: var(--dim);
-  margin-left: auto;
-}
-
-/* ─── CONTACT ────────────────────────────────────────────── */
-#contact { background: var(--bg); }
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-}
-@media (max-width: 600px) { .contact-grid { grid-template-columns: 1fr; } }
-.contact-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 0.75rem;
-  padding: 2rem;
-}
-.contact-card h3 {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-.contact-card p {
-  font-size: 0.82rem;
-  color: var(--dim);
-  line-height: 1.7;
-  margin-bottom: 1.35rem;
-}
-.link-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.link-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  color: var(--c0);
-  border: 1px solid rgba(0,200,255,0.22);
-  padding: 0.45rem 0.9rem;
-  border-radius: 0.3rem;
-  transition: background 0.2s, border-color 0.2s;
-}
-.link-btn:hover { background: rgba(0,200,255,0.07); border-color: var(--c0); }
-.link-btn.amber { color: var(--hw); border-color: rgba(245,158,11,0.22); }
-.link-btn.amber:hover { background: rgba(245,158,11,0.07); border-color: var(--hw); }
-
-/* ─── FOOTER ─────────────────────────────────────────────── */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 1.75rem 2.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-.footer-l, .footer-r {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.58rem;
-  color: var(--dim);
-  letter-spacing: 0.1em;
-}
-
-/* ─── KEYFRAMES ──────────────────────────────────────────── */
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(22px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes gradFlow {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-@keyframes scrollPulse {
-  0%, 100% { opacity: 0.25; }
-  50%       { opacity: 1; }
-}
-
-/* ─── REDUCED MOTION ─────────────────────────────────────── */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
-  .hero-name-en {
-    background: var(--c0);
-    -webkit-background-clip: text;
-    background-clip: text;
-  }
+/* ── ANIMATIONS ── */
+@keyframes up{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+@keyframes gf{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+@keyframes sp{0%,100%{opacity:.25;}50%{opacity:1;}}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}
 }
 </style>
 </head>
 <body>
 
-<!-- ─── NAV ───────────────────────────────────────────────── -->
+<!-- NAV -->
 <nav id="nav">
-  <div class="nav-logo">MAO · GUANGHUI</div>
+  <div class="nav-logo">MAO GUANGHUI</div>
   <ul class="nav-links">
     <li><a href="#stack">PCFS Stack</a></li>
     <li><a href="#projects">Inventions</a></li>
@@ -697,161 +307,134 @@ footer {
   </ul>
 </nav>
 
-<!-- ─── HERO ──────────────────────────────────────────────── -->
+<!-- HERO -->
 <div id="hero">
   <canvas id="hero-canvas"></canvas>
   <div class="hero-inner">
-    <p class="hero-eyebrow">Independent Inventor · Xinzheng, Henan · China</p>
-    <div class="hero-name-wrap">
-      <span class="hero-name-en">Guanghui Mao</span>
-      <span class="hero-name-zh">DESIGNER · RESEARCHER · INVENTOR</span>
-    </div>
-    <p class="hero-subtitle">Photonic Computing Full Stack &mdash; Designed Solo</p>
-    <div class="hero-pills">
-      <span class="hero-pill">PLC · Core Chip Logic</span>
-      <span class="hero-pill p1">PSM · Photonic State Memory</span>
-      <span class="hero-pill p2">STO · Shadow Operator</span>
-      <span class="hero-pill p3">BitStar · Geo-Network</span>
-      <span class="hero-pill p4">PEOS · Emergence Kernel</span>
-      <span class="hero-pill p5">PCC-ENV · Conscious Layer</span>
+    <p class="hero-eye">Independent Inventor &middot; Xinzheng, China</p>
+    <span class="hero-name">Guanghui Mao</span>
+    <p class="hero-sub">Photonic Computing Full Stack &mdash; Designed Solo</p>
+    <div class="pills">
+      <span class="pill p0">PLC &middot; Photonic Logic</span>
+      <span class="pill p1">PSM &middot; Photonic Memory</span>
+      <span class="pill p2">STO &middot; Shadow Topology</span>
+      <span class="pill p3">BitStar &middot; Network</span>
+      <span class="pill p4">PEOS &middot; Photonic OS</span>
+      <span class="pill p5">PCC-ENV &middot; Consciousness</span>
     </div>
   </div>
   <div class="hero-scroll">
-    <span>Explore Stack</span>
+    <span>EXPLORE</span>
     <div class="scroll-line"></div>
   </div>
 </div>
 
-<!-- ─── ABOUT ─────────────────────────────────────────────── -->
+<!-- ABOUT -->
 <div id="about">
   <div class="wrap">
     <div class="about-grid">
       <div>
-        <span class="section-label">Overview</span>
-        <h2 class="section-title">One engineer.<br/>Six invention layers.</h2>
-        <p class="section-body">
-          No institutional boundaries. No external funding constraints.<br/><br/>
-          Between 2025 and 2026, I engineered, simulated, and peer-documented a complete photonic computing framework — moving seamlessly from micro-scale logic gates up to macro environment fusion architectures — as a completely independent researcher.
-        </p>
-        <div class="about-body-extra">
-          Every individual architectural layer is securely timestamped on CERN Zenodo repository platforms with cryptographically locked SHA-256 digital chains. Licensed under MGOVL v2.0.
-        </div>
+        <span class="sec-label">About</span>
+        <h2 class="sec-title">One engineer.<br>Six invention layers.</h2>
+        <p class="sec-body">No lab. No team. No funding. Just light.<br><br>
+        Between 2025 and 2026, I designed a complete photonic computing stack from scratch &mdash; alone. From the logic gate level all the way to consciousness-environment fusion.</p>
+        <p class="about-note">Every layer is publicly timestamped on CERN Zenodo with SHA-256 hash chains. Every claim is independently verifiable. Licensed under MGOVL v2.0.</p>
       </div>
       <div class="stat-grid">
-        <div class="stat-card">
-          <span class="stat-num">6</span>
-          <span class="stat-label">PCFS LAYERS</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-num">12+</span>
-          <span class="stat-label">ZENODO RECORDS</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-num">SHA256</span>
-          <span class="stat-label">PRIOR ART CHAIN</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-num">Open</span>
-          <span class="stat-label">MGOVL v2.0</span>
-        </div>
+        <div class="stat-card"><span class="stat-num">6</span><span class="stat-lbl">PCFS LAYERS</span></div>
+        <div class="stat-card"><span class="stat-num">12+</span><span class="stat-lbl">ZENODO RECORDS</span></div>
+        <div class="stat-card"><span class="stat-num">SHA256</span><span class="stat-lbl">PRIOR ART CHAIN</span></div>
+        <div class="stat-card"><span class="stat-num">MGOVL</span><span class="stat-lbl">v2.0 LICENSE</span></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ─── STACK ─────────────────────────────────────────────── -->
+<!-- STACK -->
 <div id="stack">
   <div class="wrap">
-    <div class="section-head">
-      <span class="section-label">Architecture Matrix</span>
-      <h2 class="section-title">Photonic Computing<br/>Full Stack (PCFS)</h2>
-      <p class="section-body">
-        An interconnected 6-layer blueprint. Transitioning from physical liquid-crystal logic states at the core to environmental computation arrays at the apex.
-      </p>
+    <div class="sec-head">
+      <span class="sec-label">Architecture</span>
+      <h2 class="sec-title">Photonic Computing<br>Full Stack</h2>
+      <p class="sec-body">Six layers from photonic logic gates at the base to ambient consciousness at the apex. Light as computation, end to end.</p>
     </div>
-    <div class="stack-diagram">
+    <div class="stack-box">
 
-      <!-- L5: PCC-ENV -->
-      <div class="stack-layer sl-5">
-        <div class="layer-num-cell"><strong>L5</strong>APEX</div>
-        <div class="layer-info">
-          <span class="layer-en-tag">PCC-ENV · Photonic Conscious Computing</span>
-          <div class="layer-zh-name">Ambient Environment Fusion Framework</div>
-          <p class="layer-desc-text">Utilizes ambient room illumination vectors as a distributed operational matrix. The philosophical design apex of the entire standalone PCFS blueprint.</p>
+      <div class="sl sl5">
+        <div class="l-num"><strong>L5</strong>APEX</div>
+        <div>
+          <span class="l-tag">PCC-ENV &middot; Photonic Conscious Computing</span>
+          <div class="l-title">Photonic Consciousness Layer</div>
+          <p class="l-desc">Ambient room light as computation medium. Inspired by a 3 AM observation of refracted ceiling light. The philosophical apex of the PCFS &mdash; consciousness-environment fusion.</p>
         </div>
-        <div class="layer-meta-col">
-          <a class="doi-btn" href="https://zenodo.org" target="_blank">Zenodo Archive</a>
-          <span class="layer-type-tag">THEORETICAL MODEL</span>
+        <div class="l-meta">
+          <a class="doi-btn" href="https://zenodo.org" target="_blank">Zenodo</a>
+          <span class="l-type">CONSCIOUSNESS</span>
         </div>
       </div>
 
-      <!-- L4: PEOS -->
-      <div class="stack-layer sl-4">
-        <div class="layer-num-cell"><strong>L4</strong>OS</div>
-        <div class="layer-info">
-          <span class="layer-en-tag">PEOS · Photonic Emergence Operating System</span>
-          <div class="layer-zh-name">Photonic Native Operating Kernel</div>
-          <p class="layer-desc-text">An operating framework designed natively to govern light propagation pathways. Features interference-driven tasks, state schedules, and optical process rings.</p>
+      <div class="sl sl4">
+        <div class="l-num"><strong>L4</strong>OS</div>
+        <div>
+          <span class="l-tag">PEOS &middot; Photonic Emergence Operating System</span>
+          <div class="l-title">Photonic Emergence OS</div>
+          <p class="l-desc">First OS architecture designed natively for light-based computation. Interference-based process scheduling, emergent kernel primitives, photonic memory management.</p>
         </div>
-        <div class="layer-meta-col">
+        <div class="l-meta">
           <a class="doi-btn" href="https://zenodo.org/records/20603667" target="_blank">DOI 20603667</a>
-          <span class="layer-type-tag">SOFTWARE CORE</span>
+          <span class="l-type">SOFTWARE</span>
         </div>
       </div>
 
-      <!-- L3: BitStar -->
-      <div class="stack-layer sl-3">
-        <div class="layer-num-cell"><strong>L3</strong>NET</div>
-        <div class="layer-info">
-          <span class="layer-en-tag">BitStar · Geographic Photonic Network</span>
-          <div class="layer-zh-name">GeoAddress Link Routing Protocol</div>
-          <p class="layer-desc-text">Replaces arbitrary node networks with 160-bit real physical coordinates. Employs topological routing arrays and systemic cache hierarchies.</p>
+      <div class="sl sl3">
+        <div class="l-num"><strong>L3</strong>NET</div>
+        <div>
+          <span class="l-tag">BitStar &middot; Geographic Photonic Network</span>
+          <div class="l-title">BitStar Network Protocol</div>
+          <p class="l-desc">GeoAddress Protocol replaces IP with 160-bit physical coordinates. Gravity routing, link tiering, SLAP interplanetary extension, and semantic cache routing.</p>
         </div>
-        <div class="layer-meta-col">
-          <a class="doi-btn" href="https://github.com/maomaoati-coder" target="_blank">GitHub Sync</a>
-          <span class="layer-type-tag">TOPOLOGY DESIGN</span>
+        <div class="l-meta">
+          <a class="doi-btn" href="https://github.com/maomaoati-coder" target="_blank">GitHub</a>
+          <span class="l-type">NETWORK</span>
         </div>
       </div>
 
-      <!-- L2: STO / PLC v2 -->
-      <div class="stack-layer sl-2">
-        <div class="layer-num-cell"><strong>L2</strong>ADV</div>
-        <div class="layer-info">
-          <span class="layer-en-tag">STO · Shadow Topology Operator / PLC v2</span>
-          <div class="layer-zh-name">Advanced Structural Light Matrix</div>
-          <p class="layer-desc-text">Extends core hardware functions into multi-dimensional phase matrices. Employs high-order spatial interference states to bypass classical Boolean structural caps.</p>
+      <div class="sl sl2">
+        <div class="l-num"><strong>L2</strong>ADV</div>
+        <div>
+          <span class="l-tag">STO &middot; Shadow Topology Operator / PLC v2</span>
+          <div class="l-title">Shadow Topology Operator</div>
+          <p class="l-desc">Extends PLC to higher-dimensional beam-propagation phase spaces. Shadow topological states encode computation beyond classical Boolean logic.</p>
         </div>
-        <div class="layer-meta-col">
+        <div class="l-meta">
           <a class="doi-btn" href="https://zenodo.org/records/20777359" target="_blank">DOI 20777359</a>
-          <span class="layer-type-tag">ADVANCED MATH</span>
+          <span class="l-type">ADVANCED LOGIC</span>
         </div>
       </div>
 
-      <!-- L1: PSM -->
-      <div class="stack-layer sl-1">
-        <div class="layer-num-cell"><strong>L1</strong>MEM</div>
-        <div class="layer-info">
-          <span class="layer-en-tag">PSM · Photonic State Memory</span>
-          <div class="layer-zh-name">Polarization State Optical Array</div>
-          <p class="layer-desc-text">Non-volatile architectural storage layer using stable optical polarization arrays, building a bridge from raw gate operations to high-level registers.</p>
+      <div class="sl sl1">
+        <div class="l-num"><strong>L1</strong>MEM</div>
+        <div>
+          <span class="l-tag">PSM &middot; Photonic State Memory</span>
+          <div class="l-title">Photonic State Memory</div>
+          <p class="l-desc">Non-volatile photonic memory via liquid-crystal polarization states. Persistent storage layer bridging PLC logic gates to the upper software stack.</p>
         </div>
-        <div class="layer-meta-col">
+        <div class="l-meta">
           <a class="doi-btn" href="https://zenodo.org/records/20603456" target="_blank">DOI 20603456</a>
-          <span class="layer-type-tag">STORAGE LAYER</span>
+          <span class="l-type">MEMORY</span>
         </div>
       </div>
 
-      <!-- L0: PLC -->
-      <div class="stack-layer sl-0">
-        <div class="layer-num-cell"><strong>L0</strong>CORE</div>
-        <div class="layer-info">
-          <span class="layer-en-tag">PLC · Photonic Logic Chip</span>
-          <div class="layer-zh-name">Optical Propagation Angular Logic Gate</div>
-          <p class="layer-desc-text">The foundation block: light beam angular trajectories passing through engineered films to resolve logic variables. Over 12 version chains published.</p>
+      <div class="sl sl0">
+        <div class="l-num"><strong>L0</strong>CORE</div>
+        <div>
+          <span class="l-tag">PLC &middot; Photonic Logic Chip</span>
+          <div class="l-title">Photonic Logic Chip</div>
+          <p class="l-desc">The founding invention: light beam propagation angle through liquid-crystal film encodes Boolean logic state. 12-version prior art chain on CERN Zenodo. 400 GIPS / 5.289 mW.</p>
         </div>
-        <div class="layer-meta-col">
+        <div class="l-meta">
           <a class="doi-btn" href="https://zenodo.org/records/19801651" target="_blank">DOI 19801651</a>
-          <span class="layer-type-tag">HARDWARE ASIC</span>
+          <span class="l-type">FOUNDATION</span>
         </div>
       </div>
 
@@ -859,79 +442,79 @@ footer {
   </div>
 </div>
 
-<!-- ─── PROJECTS ──────────────────────────────────────────── -->
+<!-- PROJECTS -->
 <div id="projects">
   <div class="wrap">
-    <div class="section-head">
-      <span class="section-label">IP Ledger</span>
-      <h2 class="section-title">Individual Innovations</h2>
-      <p class="section-body">Each project module stands as a fully cataloged, validated, and timestamped invention layer. Managed under open framework licenses.</p>
+    <div class="sec-head">
+      <span class="sec-label">Inventions</span>
+      <h2 class="sec-title">Individual Projects</h2>
+      <p class="sec-body">Each invention is an independently documented, publicly timestamped prior art record. All rights reserved under MGOVL v2.0.</p>
     </div>
-    <div class="projects-grid">
+    <div class="proj-grid">
 
-      <div class="proj-card pc0">
-        <span class="proj-icon">&#9675;</span>
-        <span class="proj-en">PLC · Core Gates</span>
-        <div class="proj-zh">Photonic Logic Chip</div>
-        <p class="proj-desc">Utilizes beam angle metrics within micro-layers to resolve logic functions. Complete version log locked cryptographically on Zenodo nodes.</p>
-        <div class="proj-footer">
-          <a class="proj-doi-link" href="https://zenodo.org/records/19801651" target="_blank">DOI 19801651</a>
-          <span class="proj-status ok">VERIFIED</span>
+      <div class="pc c0">
+        <span class="p-ico">*</span>
+        <span class="p-tag">PLC &middot; FOUNDATION LOGIC</span>
+        <div class="p-name">Photonic Logic Chip</div>
+        <p class="p-desc">Light beam angles through liquid-crystal film as Boolean logic gates. The founding invention. 400 GIPS &middot; 5.289 mW &middot; 50 GHz &middot; No Silicon. 12 prior art versions with SHA-256 chain.</p>
+        <div class="p-foot">
+          <a class="p-doi" href="https://zenodo.org/records/19801651" target="_blank">DOI 19801651</a>
+          <span class="p-ok">SECURED</span>
         </div>
       </div>
 
-      <div class="proj-card pc1">
-        <span class="proj-icon">&#9670;</span>
-        <span class="proj-en">PSM · Memory Node</span>
-        <div class="proj-zh">Photonic State Memory</div>
-        <p class="proj-desc">Long-cycle optical memory registers utilizing persistent polarization arrays. Eliminates standard electronic refreshing latency completely.</p>
-        <div class="proj-footer">
-          <a class="proj-doi-link" href="https://zenodo.org/records/20603456" target="_blank">DOI 20603456</a>
-          <span class="proj-status ok">VERIFIED</span>
+      <div class="pc c1">
+        <span class="p-ico">+</span>
+        <span class="p-tag">PSM &middot; MEMORY LAYER</span>
+        <div class="p-name">Photonic State Memory</div>
+        <p class="p-desc">Persistent photonic memory via LC polarization states. Non-volatile storage layer enabling photonic logic results to be retained across computation cycles.</p>
+        <div class="p-foot">
+          <a class="p-doi" href="https://zenodo.org/records/20603456" target="_blank">DOI 20603456</a>
+          <span class="p-ok">SECURED</span>
         </div>
       </div>
 
-      <div class="proj-card pc2">
-        <span class="proj-icon">&#9432;</span>
-        <span class="proj-en">STO · Complex Array</span>
-        <div class="proj-zh">Shadow Operator</div>
-        <p class="proj-desc">Next-generation hardware topology engine computing across spatial structures. Converts complex wavefront operations into raw data solutions.</p>
-        <div class="proj-footer">
-          <a class="proj-doi-link" href="https://zenodo.org/records/20777359" target="_blank">DOI 20777359</a>
-          <span class="proj-status ok">VERIFIED</span>
+      <div class="pc c2">
+        <span class="p-ico">#</span>
+        <span class="p-tag">STO &middot; ADVANCED LOGIC</span>
+        <div class="p-name">Shadow Topology Operator</div>
+        <p class="p-desc">Second-generation PLC extending to higher-dimensional phase spaces. Multi-beam interference as computational substrate. 6/6 simulation scenarios pass.</p>
+        <div class="p-foot">
+          <a class="p-doi" href="https://zenodo.org/records/20777359" target="_blank">DOI 20777359</a>
+          <span class="p-ok">SECURED</span>
         </div>
       </div>
 
-      <div class="proj-card pc3">
-        <span class="proj-icon">&#10022;</span>
-        <span class="proj-en">BitStar · Link Protocol</span>
-        <div class="proj-zh">Geographic Network</div>
-        <p class="proj-desc">Advanced topological data mapping structure using geographical coordinate fields to map hardware communication logic paths worldwide.</p>
-        <div class="proj-footer">
-          <a class="proj-doi-link" href="https://github.com/maomaoati-coder" target="_blank">GitHub Src</a>
-          <span class="proj-status ok">VERIFIED</span>
+      <div class="pc c3">
+        <span class="p-ico">@</span>
+        <span class="p-tag">BITSTAR &middot; NETWORK</span>
+        <div class="p-name">BitStar Network</div>
+        <p class="p-desc">Geographic routing protocol replacing IP with 160-bit physical coordinates. Gravity routing, tiered links, and interplanetary SLAP protocol extension.</p>
+        <div class="p-foot">
+          <a class="p-doi" href="https://github.com/maomaoati-coder" target="_blank">GitHub</a>
+          <span class="p-ok">SECURED</span>
         </div>
       </div>
 
-      <div class="proj-card pc4">
-        <span class="proj-icon">&#9651;</span>
-        <span class="proj-en">PEOS · System Matrix</span>
-        <div class="proj-zh">Emergence Kernel</div>
-        <p class="proj-desc">An asymmetrical execution manager structured around continuous wave interaction instead of fixed clock oscillators.</p>
-        <div class="proj-footer">
-          <a class="proj-doi-link" href="https://zenodo.org/records/20603667" target="_blank">DOI 20603667</a>
-          <span class="proj-status ok">VERIFIED</span>
+      <div class="pc c4">
+        <span class="p-ico">%</span>
+        <span class="p-tag">PEOS &middot; OS LAYER</span>
+        <div class="p-name">Photonic Emergence OS</div>
+        <p class="p-desc">First OS designed natively for photonic computation. Interference-based process arbitration, emergent scheduling, photonic syscall architecture. 15/15 pass.</p>
+        <div class="p-foot">
+          <a class="p-doi" href="https://zenodo.org/records/20603667" target="_blank">DOI 20603667</a>
+          <span class="p-ok">SECURED</span>
         </div>
       </div>
 
-      <div class="proj-card pc5">
-        <span class="proj-icon">&#9673;</span>
-        <span class="proj-en">PCC-ENV · Logic Field</span>
-        <div class="proj-zh">Conscious Architecture</div>
-        <p class="proj-desc">Theoretical model mapping system metrics into macro environments, treating environmental light arrays as functional computation space.</p>
-        <div class="proj-footer">
-          <a class="proj-doi-link" href="https://github.com/maomaoati-coder" target="_blank">GitHub Hub</a>
-          <span class="proj-status ok">VERIFIED</span>
+      <div class="pc c5">
+        <span class="p-ico">~</span>
+        <span class="p-tag">PCC-ENV &middot; CONSCIOUSNESS</span>
+        <div class="p-name">Photonic Consciousness</div>
+        <p class="p-desc">Ambient photonic consciousness layer. Born from a 3 AM observation of refracted ceiling light. Room-scale computation medium as the philosophical apex of the stack.</p>
+        <div class="p-foot">
+          <a class="p-doi" href="https://github.com/maomaoati-coder" target="_blank">GitHub</a>
+          <span class="p-ok">SECURED</span>
         </div>
       </div>
 
@@ -939,113 +522,252 @@ footer {
   </div>
 </div>
 
-  <!-- ─── HARDWARE ───────────────────────────────────────────── -->
+<!-- HARDWARE -->
 <div id="hardware">
   <div class="wrap">
-    <div class="section-head">
-      <span class="section-label">Physical Layout</span>
-      <h2 class="section-title">Hardware Blueprint Mapping</h2>
-      <p class="section-body">Structural specifications outlining physical logic parameters and mechanical integration baselines across standard testing layers.</p>
+    <div class="sec-head">
+      <span class="sec-label">Real-World Bridge</span>
+      <h2 class="sec-title">LingKong Core</h2>
+      <p class="sec-body">While PCFS awaits its photonic dawn, LingKong Core bridges today &mdash; a fully verified Edge-AI MCU with INT8 inference, simulated end-to-end.</p>
     </div>
-    <div class="hw-grid">
+    <div class="hw-box">
       <div>
-        <span class="hw-main-sub">CORE ENGINE SPECS</span>
-        <div class="hw-main-title">PLC-V2 Matrix</div>
-        <p class="hw-main-desc">
-          The physical execution core employs multi-refractive layer matrices capable of executing micro-scale beam bending. This enables sub-nanosecond calculation processing directly through targeted spatial crystal structures without relying on silicon gates.
-        </p>
-        <div class="hw-badges">
-          <span class="hw-badge pass">SIMULATION: PASSED</span>
-          <span class="hw-badge target">TARGET: FAB LESS</span>
+        <span class="hw-sub">EDGE-AI MCU ARCHITECTURE &middot; 5 LAYERS</span>
+        <div class="hw-title">LingKong Core</div>
+        <p class="hw-desc">A complete 5-layer Edge-AI MCU with a 4x4 INT8 MAC array inference engine and zero-heat power domain. Fully verified across 32 simulation scenarios on EDA Playground (Icarus Verilog 12.0). Prior art package on GitHub. Primary licensing target: VeriSilicon.</p>
+        <div class="hw-bdgs">
+          <span class="hw-bdg hw-pass">32 / 32 SCENARIOS PASS</span>
+          <span class="hw-bdg hw-pass">EDA PLAYGROUND VERIFIED</span>
+          <span class="hw-bdg hw-tgt">TARGET: VERISILICON</span>
         </div>
       </div>
-      <div class="hw-layers-list">
-        <div class="hw-layer-row">
-          <span class="hw-l-num">01</span>
-          <span class="hw-l-name">Polarization Polar Matrix</span>
-          <span class="hw-l-tag">Active Layer</span>
-        </div>
-        <div class="hw-layer-row">
-          <span class="hw-l-num">02</span>
-          <span class="hw-l-name">Wavefront Modification Array</span>
-          <span class="hw-l-tag">Refractive Film</span>
-        </div>
-        <div class="hw-layer-row">
-          <span class="hw-l-num">03</span>
-          <span class="hw-l-name">Spatial Shadow Interceptor</span>
-          <span class="hw-l-tag">Logic Target</span>
-        </div>
+      <div class="hw-list">
+        <div class="hw-row"><span class="hw-n">L1</span><span class="hw-nm">Register File</span><span class="hw-t">BASE</span></div>
+        <div class="hw-row"><span class="hw-n">L2</span><span class="hw-nm">ALU</span><span class="hw-t">COMPUTE</span></div>
+        <div class="hw-row"><span class="hw-n">L3</span><span class="hw-nm">Single-Cycle CPU</span><span class="hw-t">CONTROL</span></div>
+        <div class="hw-row"><span class="hw-n">L4</span><span class="hw-nm">Zero-Heat Power Domain</span><span class="hw-t">LENGXIN</span></div>
+        <div class="hw-row"><span class="hw-n">L5</span><span class="hw-nm">INT8 AI Inference Engine</span><span class="hw-t">4x4 MAC</span></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ─── CONTACT ────────────────────────────────────────────── -->
+<!-- CONTACT -->
 <div id="contact">
   <div class="wrap">
-    <div class="section-head">
-      <span class="section-label">Connect</span>
-      <h2 class="section-title">Peer Review & Collaboration</h2>
-      <p class="section-body">Open for technical inquiries, source validation requests, academic discussions, and deep architectural reviews.</p>
+    <div class="sec-head">
+      <span class="sec-label">Connect</span>
+      <h2 class="sec-title">Open for<br>Collaboration</h2>
+      <p class="sec-body">IP licensing, joint development, technical consultation. No institutional affiliation required &mdash; just shared vision.</p>
     </div>
-    <div class="contact-grid">
-      <div class="contact-card">
-        <h3>Development Hub</h3>
-        <p>Review current repository structures, open-source file headers, architecture scripts, and network protocols.</p>
-        <div class="link-row">
-          <a class="link-btn" href="https://github.com/maomaoati-coder" target="_blank">Access GitHub</a>
+    <div class="con-grid">
+      <div class="con-card">
+        <h3>Prior Art Archive</h3>
+        <p>All inventions are publicly timestamped on CERN Zenodo with SHA-256 hash chains. Full documentation in English and Chinese. Every record is independently verifiable.</p>
+        <div class="lrow">
+          <a class="lbtn" href="https://zenodo.org" target="_blank">Zenodo Records</a>
+          <a class="lbtn" href="https://github.com/maomaoati-coder" target="_blank">GitHub</a>
         </div>
       </div>
-      <div class="contact-card">
-        <h3>Academic Ledger</h3>
-        <p>Explore complete timestamped prior art chains, mathematical records, and architectural blueprints on Zenodo.</p>
-        <div class="link-row">
-          <a class="link-btn amber" href="https://zenodo.org" target="_blank">Verify Zenodo Logs</a>
+      <div class="con-card">
+        <h3>Licensing &amp; Inquiry</h3>
+        <p>All inventions licensed under MGOVL v2.0. Commercial licensing available. Open for partnership, IP licensing, and investment discussions.</p>
+        <div class="lrow">
+          <a class="lbtn a" href="mailto:maomaoati@gmail.com">maomaoati@gmail.com</a>
+          <a class="lbtn a" href="https://www.linkedin.com/in/maomaoati" target="_blank">LinkedIn</a>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ─── FOOTER ─────────────────────────────────────────────── -->
+<!-- FOOTER -->
 <footer>
-  <div class="footer-l">&copy; 2026 Guanghui Mao. All rights reserved.</div>
-  <div class="footer-r">Licensed under MGOVL v2.0 Platform Spec</div>
+  <div class="ft">Guanghui Mao &middot; MGOVL v2.0 &middot; All Rights Reserved</div>
+  <div class="ft">PCFS v5.0 &middot; Xinzheng, Henan, China &middot; 2025-2026</div>
 </footer>
 
 <script>
-// Structural canvas rendering fallback logic for decorative backgrounds
-const canvas = document.getElementById('hero-canvas');
-if (canvas) {
-  const ctx = canvas.getContext('2d');
-  let animationFrameId;
+/* ── CANVAS: Photon Beam Animation ── */
+(function(){
+  var canvas = document.getElementById('hero-canvas');
+  if(!canvas||!canvas.getContext) return;
+  var ctx = canvas.getContext('2d');
+  if(!ctx) return;
 
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+  var W=0, H=0, beams=[], cells=[], RAF;
+  var COLS=22, ROWS=13, N=10;
+  var COLORS=['#00C8FF','#8B5CF6','#00FFCD','#00C8FF','#F43FE8'];
+
+  function resize(){
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = canvas.parentElement.clientHeight||window.innerHeight;
   }
-  window.addEventListener('resize', resize);
-  resize();
 
-  // Draw smooth subtle mathematical wave patterns to emphasize light computing themes
-  function draw(time) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.strokeStyle = 'rgba(0, 200, 255, 0.03)';
-    ctx.lineWidth = 1.5;
-    
-    ctx.beginPath();
-    for (let i = 0; i < canvas.width; i++) {
-      const y = canvas.height * 0.4 + Math.sin(i * 0.003 + time * 0.001) * 80 * Math.cos(i * 0.001);
-      if (i === 0) ctx.moveTo(i, y);
-      else ctx.lineTo(i, y);
+  /* LC Cell */
+  function makeCell(c,r){
+    return { c:c, r:r,
+      ph: Math.random()*Math.PI*2,
+      sp: .004+Math.random()*.006,
+      mx: .25+Math.random()*.15
+    };
+  }
+  function cellX(cl){ return (cl.c+.5)/COLS*W; }
+  function cellY(cl){ return (cl.r+.5)/ROWS*H; }
+  function cellAngle(cl){ return Math.sin(cl.ph)*cl.mx; }
+
+  function initCells(){
+    cells=[];
+    for(var r=0;r<ROWS;r++)
+      for(var c=0;c<COLS;c++)
+        cells.push(makeCell(c,r));
+  }
+
+  /* Beam */
+  function makeBeam(i, init){
+    return {
+      i:i,
+      baseY: (i+.5)/N*H,
+      amp: 25+Math.random()*65,
+      freq: 1.4+Math.random()*2.2,
+      ph: Math.random()*Math.PI*2,
+      sp: 1.1+Math.random()*1.5,
+      len: 110+Math.floor(Math.random()*90),
+      col: COLORS[i%COLORS.length],
+      t: 0,
+      x: init ? (i/N)*W*.6-40 : -(110+90),
+      trail: []
+    };
+  }
+  function beamY(b,x){ return b.baseY + b.amp*Math.sin((x/W)*b.freq*Math.PI*2+b.ph+b.t*.007); }
+
+  function initBeams(){
+    beams=[];
+    for(var i=0;i<N;i++) beams.push(makeBeam(i,true));
+  }
+
+  function drawGrid(){
+    ctx.save();
+    ctx.strokeStyle='rgba(0,200,255,.022)';
+    ctx.lineWidth=.5;
+    var cw=W/COLS, ch=H/ROWS;
+    for(var c=0;c<=COLS;c++){ctx.beginPath();ctx.moveTo(c*cw,0);ctx.lineTo(c*cw,H);ctx.stroke();}
+    for(var r=0;r<=ROWS;r++){ctx.beginPath();ctx.moveTo(0,r*ch);ctx.lineTo(W,r*ch);ctx.stroke();}
+    ctx.restore();
+  }
+
+  function drawCells(){
+    for(var i=0;i<cells.length;i++){
+      var cl=cells[i];
+      cl.ph+=cl.sp;
+      var a=cellAngle(cl);
+      var cx=cellX(cl), cy=cellY(cl);
+      var len=(W/COLS)*.25;
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(cx-Math.cos(a)*len, cy-Math.sin(a)*len);
+      ctx.lineTo(cx+Math.cos(a)*len, cy+Math.sin(a)*len);
+      ctx.strokeStyle='rgba(0,200,255,.11)';
+      ctx.lineWidth=.8;
+      ctx.stroke();
+      ctx.restore();
     }
-    ctx.stroke();
-    
-    animationFrameId = requestAnimationFrame(draw);
   }
-  draw(0);
-}
-</script>
 
+  function drawBeams(){
+    for(var i=0;i<beams.length;i++){
+      var b=beams[i];
+      b.t+=b.sp; b.x+=b.sp;
+      var pt={x:b.x, y:beamY(b,b.x)};
+      b.trail.push(pt);
+      if(b.trail.length>b.len) b.trail.shift();
+      if(b.x>W+80){ beams[i]=makeBeam(i,false); continue; }
+      if(b.trail.length<3) continue;
+      var head=b.trail[b.trail.length-1];
+      var tail=b.trail[0];
+      var g=ctx.createLinearGradient(tail.x,0,head.x,0);
+      g.addColorStop(0,'transparent');
+      g.addColorStop(.35,b.col+'55');
+      g.addColorStop(1,b.col+'CC');
+      ctx.save();
+      ctx.shadowBlur=7; ctx.shadowColor=b.col;
+      ctx.beginPath();
+      ctx.moveTo(b.trail[0].x,b.trail[0].y);
+      for(var j=1;j<b.trail.length;j++) ctx.lineTo(b.trail[j].x,b.trail[j].y);
+      ctx.strokeStyle=g; ctx.lineWidth=1.4; ctx.globalAlpha=.78;
+      ctx.stroke();
+      /* tip */
+      ctx.beginPath();
+      ctx.arc(head.x,head.y,1.7,0,Math.PI*2);
+      ctx.fillStyle='#FFFFFF'; ctx.shadowBlur=12; ctx.shadowColor=b.col;
+      ctx.globalAlpha=.92; ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  function drawGlow(){
+    for(var i=0;i<beams.length-1;i++){
+      var a=beams[i];
+      if(!a.trail.length) continue;
+      var ax=a.x, ay=beamY(a,a.x);
+      for(var j=i+1;j<beams.length;j++){
+        var b=beams[j];
+        if(!b.trail.length) continue;
+        var bx=b.x, by=beamY(b,b.x);
+        var d=Math.sqrt((ax-bx)*(ax-bx)+(ay-by)*(ay-by));
+        if(d<55){
+          var mx=(ax+bx)*.5, my=(ay+by)*.5;
+          var rg=ctx.createRadialGradient(mx,my,0,mx,my,28);
+          rg.addColorStop(0,'rgba(255,255,255,.17)');
+          rg.addColorStop(1,'transparent');
+          ctx.save(); ctx.fillStyle=rg; ctx.globalAlpha=.7;
+          ctx.beginPath(); ctx.arc(mx,my,28,0,Math.PI*2); ctx.fill();
+          ctx.restore();
+        }
+      }
+    }
+  }
+
+  var reduced = window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  function frame(){
+    RAF = requestAnimationFrame(frame);
+    if(reduced) return;
+    ctx.clearRect(0,0,W,H);
+    drawGrid(); drawCells(); drawBeams(); drawGlow();
+  }
+
+  resize(); initCells(); initBeams();
+  window.addEventListener('resize',function(){ resize(); initCells(); initBeams(); },{passive:true});
+  frame();
+})();
+
+/* ── SCROLL REVEAL ── */
+(function(){
+  if(!window.IntersectionObserver) {
+    document.querySelectorAll('.sl,.pc').forEach(function(el){el.classList.add('vis');});
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(!entry.isIntersecting) return;
+      var el=entry.target;
+      var siblings=[].slice.call(el.parentElement.children);
+      var idx=siblings.indexOf(el);
+      setTimeout(function(){ el.classList.add('vis'); }, idx*75);
+      io.unobserve(el);
+    });
+  },{threshold:.08});
+  document.querySelectorAll('.sl,.pc').forEach(function(el){ io.observe(el); });
+})();
+
+/* ── NAV ON SCROLL ── */
+(function(){
+  var nav=document.getElementById('nav');
+  window.addEventListener('scroll',function(){
+    nav.style.background=window.scrollY>60?'rgba(4,12,21,.97)':'rgba(4,12,21,.88)';
+  },{passive:true});
+})();
+</script>
 </body>
 </html>
